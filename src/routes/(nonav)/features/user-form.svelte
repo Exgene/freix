@@ -16,6 +16,7 @@
 		gem: string;
 		pathCoordinatesArray: any;
 		data: any;
+		transactions: any;
 	};
 
 	const countries = CountryCords.map((ele) => ele.name);
@@ -68,6 +69,7 @@
 				data.gem = responseData.gem;
 				data.pathCoordinatesArray = responseData.pathCoordinatesArray;
 				data.data = responseData.data;
+				data.transactions = responseData.transactions;
 			})
 			.catch((error) => console.error('Error submitting form:', error));
 

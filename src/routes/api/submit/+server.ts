@@ -1,6 +1,6 @@
 import supabase from '$lib/db/db';
 import { geminiFetchInsights } from '$lib/gemini/gemini';
-import { geminiFetchRoutes } from '$lib/gemini/gemini2';
+import { geminiFetchRoutes, geminiFetchTransactions } from '$lib/gemini/gemini2';
 import { json } from '@sveltejs/kit';
 import CountryCords from '../../(nonav)/features/countryCords.json';
 import type { RequestHandler } from './$types';
@@ -9,9 +9,10 @@ export const POST: RequestHandler = async ({ request }) => {
 	const data = await request.json();
 	console.log('Data', data);
 
-	let [gem, gem2] = await Promise.all([
+	let [gem, gem2, gem3] = await Promise.all([
 		geminiFetchInsights(data.source, data.dest, data.product),
-		geminiFetchRoutes(data.source, data.dest, data.product)
+		geminiFetchRoutes(data.source, data.dest, data.product),
+		geminiFetchTransactions(data.source, data.dest, data.product)
 	]);
 
 	const supa = await supabase
@@ -56,6 +57,7 @@ export const POST: RequestHandler = async ({ request }) => {
 		product: data.product,
 		gem: gem,
 		pathCoordinatesArray: pathCoordinatesArray,
-		data: supa.data
+		data: supa.data,
+		transactions: gem3
 	});
 };

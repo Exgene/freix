@@ -14,14 +14,15 @@ export const load = (async ({ params, url }) => {
 		pathCoordinatesArray: [[]],
 		gem: '',
 		qp: '',
-		data: {}
+		data: {},
+		transactions: {}
 	};
 
 	zodData.source = source ?? '';
 	zodData.dest = dest ?? '';
 	zodData.product = product ?? '';
 	zodData.qp = qp ?? '';
-
+	console.log('HERE');
 	console.log('asdfasdfasdf', JSON.stringify(zodData));
 
 	return {

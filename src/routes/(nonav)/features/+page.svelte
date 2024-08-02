@@ -12,6 +12,7 @@
 
 	import { PUBLIC_MAPS_API_KEY } from '$env/static/public';
 
+	import * as Table from '$lib/components/ui/table/index.js';
 	import type { PageData } from './$types';
 	export let data: PageData;
 </script>
@@ -34,8 +35,10 @@
 		<Drawer.Root>
 			<Drawer.Trigger>
 				<Card.Root class="h-full w-full shadow-lg">
-					<Card.Content class="flex gap-2 font-bold h-full w-full items-center justify-center p-3 text-sm"
-						><p>Options</p><Icons.pizza /></Card.Content
+					<Card.Content
+						class="flex h-full w-full items-center justify-center gap-2 p-3 text-sm font-bold"
+						><p>Options</p>
+						<Icons.pizza /></Card.Content
 					>
 				</Card.Root>
 			</Drawer.Trigger>
@@ -95,6 +98,27 @@
 				<Card.Description>
 					Here are some of the matching transactions from {data?.form?.source ?? 'country A'} to
 					{data?.form?.dest ?? 'country B'} of the product category X
+					<Table.Root>
+						<Table.Caption>Recent Transactions</Table.Caption>
+						<Table.Header>
+							<Table.Row>
+								<Table.Head class="">Product</Table.Head>
+								<Table.Head class="w-[150px]">Date</Table.Head>
+								<Table.Head class="">Cost</Table.Head>
+							</Table.Row>
+						</Table.Header>
+						<!-- {JSON.stringify(data?.form?.transactions)} -->
+						
+						<Table.Body>
+							{#each Object.values(data?.form?.transactions) as transaction}
+								<Table.Row>
+									<Table.Cell class="font-medium">{transaction[0]}</Table.Cell>
+									<Table.Cell>{transaction[1]}</Table.Cell>
+									<Table.Cell>{transaction[2]}</Table.Cell>
+								</Table.Row>
+							{/each}
+						</Table.Body>
+					</Table.Root>
 				</Card.Description>
 			</Card.Header>
 		</Card.Root>
